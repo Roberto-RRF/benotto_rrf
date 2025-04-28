@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_bom_wizard" model="ir.ui.view">
+        <field name="name">purchase.order.bom.wizard.form</field>
+        <field name="model">purchase.order.bom.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add BOM to Purchase Order">
+                <group>
+                    <field name="mrp_bom_id"/>
+                    <field name="quantity"/>
+                </group>
+                <!-- <div style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; font-size: 14px; border-radius: 4px; margin-top: 10px;">
+                    <p style="font-style: italic; text-align: center; margin-bottom: 8px;">
+                        Solo se mostrarán los productos que coincidan con el proveedor seleccionado en la orden de compra.
+                    </p>                
+                </div> -->
+                <notebook>
+                    <page string="Lista de materiales">
+
+                        <field name="line_wizard_ids">
+                            <tree editable="bottom" delete="0" create="0">
+                                <field name="product_id" readonly="1" force_save="1"/>
+                                <field name="suppliers" column_invisible="1" force_save="1"/>
+                                <field name="base_quantity_required" column_invisible="1" force_save="1"/>
+                                <field name="supplier_id" domain="[('id', 'in', suppliers)]" widget="selection" force_save="1"/>
+                                <field name="quantity_required" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+                <footer>
+                    <button string="Crear Ordenes de Compra" type="object" name="action_add_po_lines" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_add_bom_wizard" model="ir.actions.act_window">
+        <field name="name">Add BOM to Order</field>
+        <field name="res_model">purchase.order.bom.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
