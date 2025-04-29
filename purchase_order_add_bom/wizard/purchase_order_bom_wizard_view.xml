@@ -30,7 +30,7 @@
                 </notebook>
 
                 <footer>
-                    <button string="Crear Ordenes de Compra" type="object" name="action_add_po_lines" class="btn-primary"/>
+                    <button string="Agregar Componentes" type="object" name="action_add_po_lines" class="btn-primary"/>
                     <button string="Cancel" special="cancel" class="btn-secondary"/>
                 </footer>
             </form>
@@ -38,7 +38,7 @@
     </record>
 
     <record id="action_add_bom_wizard" model="ir.actions.act_window">
-        <field name="name">Add BOM to Order</field>
+        <field name="name">Lista de componentes</field>
         <field name="res_model">purchase.order.bom.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

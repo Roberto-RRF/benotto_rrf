@@ -16,7 +16,7 @@ class PurchaseOrderLine(models.Model):
         supplier_id = purchase_order.partner_id.id
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Agregar Lista de Materiales',
+            'name': 'Lista de componentes',
             'res_model': 'purchase.order.bom.wizard',
             'view_mode': 'form',
             'target': 'new',

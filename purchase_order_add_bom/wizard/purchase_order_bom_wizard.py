@@ -13,7 +13,7 @@ class PurchaseOrderBomWizard(models.TransientModel):
 
     mrp_bom_id = fields.Many2one('mrp.bom', string="Producto a Fabricar")
 
-    quantity = fields.Integer(string="Quantity", default=1)
+    quantity = fields.Integer(string="Cantidad", default=1)
 
     line_wizard_ids = fields.One2many('purchase.order.bom.line.wizard', 'wizard_id', string="Lines")
 
@@ -59,13 +59,17 @@ class PurchaseOrderBomWizard(models.TransientModel):
             raise UserError("No hay líneas para agregar a la orden de compra.")
         for line in self.line_wizard_ids:
             if line.product_id and line.supplier_id:
+                description = "{} \nLdM: {}".format(
+                    line.product_id.name,
+                    self.mrp_bom_id.product_tmpl_id.name
+                )
                 self.env['purchase.order.line'].create({
                     'order_id': self.order_id.id,
                     'product_id': line.product_id.id,
                     'product_qty': line.quantity_required,
                     'price_unit': line.product_id.standard_price,
                     'product_uom': line.product_id.uom_po_id.id,
-                    'name': line.product_id.name,
+                    'name': description,
                     'partner_id': line.supplier_id.id,
                 })
         return {'type': 'ir.actions.act_window_close'}
