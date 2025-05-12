@@ -1,8 +1,8 @@
 {
     'name': 'Purchase Order Add Bill of Materials',
-    'version': '1.0',
+    'version': '17.0',
     'author':'ANFEPI: Roberto Requejo Fernández',
-    'depends': ['purchase'],
+    'depends': ['purchase', 'mrp'],
     'description': """
     """,
     'data': [

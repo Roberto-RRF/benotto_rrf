@@ -19,8 +19,9 @@ class PurchaseOrderBomWizard(models.TransientModel):
 
     order_id = fields.Many2one('purchase.order', string="Purchase Order")
     supplier_id = fields.Many2one('res.partner', string="Supplier")
-    
 
+
+    
     @api.onchange('quantity')
     def _onchange_quantity(self):
         if self.quantity and self.line_wizard_ids:
@@ -34,8 +35,7 @@ class PurchaseOrderBomWizard(models.TransientModel):
             mrp_bom = self.mrp_bom_id
             if mrp_bom:
                 lines = []
-                for bom_line in mrp_bom.bom_line_ids:
-
+                for bom_line in mrp_bom.bom_line_ids:                    
                     suppliers = bom_line.product_id.seller_ids.mapped('partner_id')
                     suppliers = suppliers.filtered(lambda s: s.id == self.supplier_id.id)
                     default_supplier = suppliers[:1].id if suppliers else False
