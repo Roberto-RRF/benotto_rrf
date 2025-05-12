@@ -20,7 +20,15 @@ class PurchaseOrderBomWizard(models.TransientModel):
     order_id = fields.Many2one('purchase.order', string="Purchase Order")
     supplier_id = fields.Many2one('res.partner', string="Supplier")
 
-
+    def default_get(self, fields):
+        res = super(PurchaseOrderBomWizard, self).default_get(fields)
+        # print("\n\n\n\n")
+        # print("Default Get")
+        # print(self.env.context['params']['id'])
+        order_id = self.env['purchase.order'].browse(self.env.context['params']['id'])
+        res['order_id'] = order_id
+        res['supplier_id'] = order_id.partner_id.id
+        return res
     
     @api.onchange('quantity')
     def _onchange_quantity(self):
