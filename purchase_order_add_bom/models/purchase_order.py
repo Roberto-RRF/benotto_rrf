@@ -14,7 +14,7 @@ class PurchaseOrderLine(models.Model):
 
     def action_add_from_bom(self):
 
-        order_id = self.env.context['active_id']
+        order_id = self.env.context.get('active_id')
         order = self.env['purchase.order'].browse(order_id)
         supplier_id = order.partner_id
 
