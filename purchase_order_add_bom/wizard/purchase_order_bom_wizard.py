@@ -65,10 +65,10 @@ class PurchaseOrderBomWizard(models.TransientModel):
             raise UserError("No hay líneas para agregar a la orden de compra.")
         for line in self.line_wizard_ids:
             if line.product_id and line.supplier_id:
-                description = "{} \nLdM Cant. {}: {}".format(
+                description = "{} \nLdM: {}. Cant.{}".format(
                     line.product_id.name,
+                    self.mrp_bom_id.product_tmpl_id.name,
                     self.quantity,
-                    self.mrp_bom_id.product_tmpl_id.name
                 )
                 self.env['purchase.order.line'].create({
                     'order_id': self.order_id.id,
