@@ -22,16 +22,15 @@ class PurchaseOrderBomWizard(models.TransientModel):
 
     def default_get(self, fields):
         res = super(PurchaseOrderBomWizard, self).default_get(fields)
-        # print("\n\n\n\n")
-        # print("Default Get")
-        # print(self.env.context['params']['id'])
+
         order_id = self.env['purchase.order'].browse(self.env.context['params']['id'])
-        res['order_id'] = order_id
+        res['order_id'] = order_id.id
         res['supplier_id'] = order_id.partner_id.id
         return res
     
     @api.onchange('quantity')
     def _onchange_quantity(self):
+        
         if self.quantity and self.line_wizard_ids:
             for line in self.line_wizard_ids:
                 line.quantity_required = line.base_quantity_required * self.quantity

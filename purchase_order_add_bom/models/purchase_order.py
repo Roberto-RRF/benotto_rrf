@@ -13,14 +13,12 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     def action_add_from_bom(self):
+        ctx = dict(self.env.context)
         return {
             'type': 'ir.actions.act_window',
             'name': 'Lista de componentes',
             'res_model': 'purchase.order.bom.wizard',
             'view_mode': 'form',
+            'context': ctx,
             'target': 'new',
-            # 'context': {
-            #     'default_order_id': order.id,
-            #     'default_supplier_id': supplier_id.id,
-            # }
         }
